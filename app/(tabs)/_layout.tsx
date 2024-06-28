@@ -1,37 +1,24 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import React from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import SplashScreen from "@/screens/SplashScreen";
+import SignUpScreen from "@/screens/SignUpScreen";
+import CompetitionScreen from "@/screens/CompetitionScreen";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const Stack = createNativeStackNavigator();
 
   return (
-    <Tabs
+    <Stack.Navigator
+      initialRouteName="SplashScreen"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
+        headerStyle: { backgroundColor: '#f5f5f5' },
+        headerTitleStyle: { fontFamily: 'Poppins', color: 'black'},
+        headerTintColor: 'black',
+      }}
+    >
+      <Stack.Screen name="Splash" component={SplashScreen} />
+      <Stack.Screen name="SignUp" component={SignUpScreen} />
+      <Stack.Screen name="Competition" component={CompetitionScreen} />
+    </Stack.Navigator>
   );
 }
