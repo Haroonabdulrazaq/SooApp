@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
 import { Formik } from 'formik';
 import { SignupSchema } from '@/validation/SignupValidation';
 
 
 const SignupForm = () => {
-  const [isSelected, setSelection] = useState(false);
     return (
     <ScrollView contentContainerStyle={styles.container}>
       <Formik

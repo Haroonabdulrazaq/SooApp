@@ -1,4 +1,3 @@
-import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 export const SignupSchema = Yup.object().shape({
@@ -7,7 +6,8 @@ export const SignupSchema = Yup.object().shape({
   password: Yup.string()
     .min(8, 'At least 8 letters')
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/, 
-      'Include at least 3 uppercase letters, lowercase letters, numbers, or special letters'),
+      `Include at least 3 uppercase letters, lowercase letters, numbers, or special letters,
+      Special characters are limited to (~!@#$%^&*()_-+=?)`),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password')], 'New password and Confirm password do not match')
     .required('This is a required field.'),

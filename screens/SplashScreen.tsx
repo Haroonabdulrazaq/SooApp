@@ -122,26 +122,3 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 });
-
-{/* <TouchableOpacity 
-                style={styles.button}
-                onPress={() => navigation.navigate('SignUp')}
-              >
-                <View style={{flex: 1, flexDirection: "row",  justifyContent: "flex-start"}}>
-                  <Icon name="login" size={20} color="white" />
-                  <Text style={styles.buttonText}>Sign up for free</Text>
-                </View>
-                <View>
-                  <Image 
-                    source={require('@/assets/images/arrow-right-circle.png')} 
-                    style={{ width: 30, height: 30, tintColor: 'white' }} // Adjust size as needed
-                  />
-                </View>
-              </TouchableOpacity> */}
-
-              // <TouchableOpacity 
-              //   style={styles.button}
-              //   onPress={() =>navigation.navigate('SignUp')}
-              // >
-              //   <Text style={styles.buttonText}></Text>
-              // </TouchableOpacity>
