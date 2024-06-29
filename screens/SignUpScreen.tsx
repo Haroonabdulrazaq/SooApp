@@ -1,10 +1,11 @@
+import SignupForm from '@/components/SignUpForm';
 import React from 'react'
-import { Text, View } from 'react-native'
+import { SafeAreaView, Text, View } from 'react-native'
 
 const SignUpScreen = () => {
   return (
     <View>
-      <Text>Hi SignUp Screen</Text>
+      <SignupForm />
     </View>
   )
 }
