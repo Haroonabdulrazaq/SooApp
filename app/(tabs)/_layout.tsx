@@ -16,7 +16,9 @@ export default function TabLayout() {
         headerTintColor: 'black',
       }}
     >
-      <Stack.Screen name="Splash" component={SplashScreen} />
+      <Stack.Screen name="Splash" component={SplashScreen} options={{
+        headerShown: false,}}
+      />
       <Stack.Screen name="SignUp" component={SignUpScreen} />
       <Stack.Screen name="Competition" component={CompetitionScreen} />
     </Stack.Navigator>
