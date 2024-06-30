@@ -1,12 +1,45 @@
 import React, {useState} from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Modal, Image } from 'react-native';
 import { Formik } from 'formik';
 import { SignupSchema } from '@/validation/SignupValidation';
 
 
 const SignupForm = () => {
+    const [modalVisible, setModalVisible] = useState(false);
     return (
     <ScrollView contentContainerStyle={styles.container}>
+      {modalVisible && (
+          <Modal
+            animationType="slide"
+            visible={modalVisible}
+            onRequestClose={()=>setModalVisible(false)}
+            presentationStyle="pageSheet"
+          >
+            <View style={styles.modalContainer}>
+              <View style={styles.modalWrapper}>
+                <View style={styles.modalIconWrapper}>
+                  <Image
+                    source={require('@/assets/images/star-icon.png')}
+                    style={{ width: 50, height: 50 }}
+                  />
+                  <TouchableOpacity onPress={()=> setModalVisible(false)}>
+                    <Image 
+                      source={require('@/assets/images/close-icon.png')}
+                      style={{ width: 50, height: 50}}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View>
+                  <Text style={{fontSize: 20, marginBottom: 10}}>Welcome to Soo</Text>
+                  <Text style={{fontSize: 16, marginBottom: 10}}>Great to have you with us!</Text>
+                </View>
+                <TouchableOpacity style={styles.submitButton} onPress={()=>setModalVisible(false)}>
+                  <Text style={styles.submitButtonText}>Got it</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+      )}
       <Formik
         initialValues={{
           competition: '',
@@ -17,8 +50,15 @@ const SignupForm = () => {
           lastName: '',
         }}
         validationSchema={SignupSchema}
-        onSubmit={(values) => {
-          console.log(values);
+        onSubmit={(values, {resetForm}) => {
+          console.log("values", values);
+
+          //TODO: Clean form values implementation
+          //TODO: Send form values to BE implementation
+          // TODO: Reset Form
+          // TODO: Redirect to another screen
+          resetForm();
+          setModalVisible(true);
         }}
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
@@ -174,4 +214,25 @@ const styles = StyleSheet.create({
   label: {
     margin: 8,
   },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)'
+  },
+  modalWrapper: {
+    justifyContent: 'space-around',
+    width: '80%',
+    height: '40%',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: '#fff',
+    borderRadius: 20
+  },
+  modalIconWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  // {backgroundColor: '#fff', padding: 20, borderRadius: 20, width: '80%', height: "40%"}
 });
