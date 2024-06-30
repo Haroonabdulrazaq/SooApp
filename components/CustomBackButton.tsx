@@ -7,7 +7,6 @@ function CustomBackButton({ navigation }: any) {
         source={require('@/assets/images/arrow-left-circle.png')}
         style={styles.backImage}
       />
-      <Text style={styles.backText}></Text>
     </TouchableOpacity>
   );
 }
@@ -24,9 +23,5 @@ const styles= StyleSheet.create({
     width: 45,
     height: 45,
     marginRight: 15,
-  },
-  backText: {
-    fontSize: 16,
-    color: 'black',
-  },
+  }
 })

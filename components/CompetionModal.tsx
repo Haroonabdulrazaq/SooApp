@@ -1,5 +1,17 @@
-import React from 'react'
-import { SafeAreaView, Modal, View, Image, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import React, {useState} from 'react'
+import {
+  SafeAreaView,
+  Modal,
+  View,
+  Image,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  TextInput
+} from 'react-native'
+  import Icon from 'react-native-vector-icons/MaterialIcons'
+
+
 
 interface IModalProp {
   isSelectionOpen: boolean;
@@ -7,7 +19,8 @@ interface IModalProp {
 }
 
 const CompetionModal = ({isSelectionOpen, setIsSelectionOpen}: IModalProp) => {
-    // const [isSelectionOpen, setIsSelectionOpen] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+
   return (
     <SafeAreaView>
       {isSelectionOpen && (
@@ -20,16 +33,24 @@ const CompetionModal = ({isSelectionOpen, setIsSelectionOpen}: IModalProp) => {
             <View style={styles.modalContainer}>
               <View style={styles.modalWrapper}>
                 <View style={styles.modalIconWrapper}>
-                  <Image
-                    source={require('@/assets/images/star-icon.png')}
-                    style={{ width: 50, height: 50 }}
-                  />
-                  <TouchableOpacity onPress={()=> setIsSelectionOpen(false)}>
-                    <Image 
-                      source={require('@/assets/images/close-icon.png')}
-                      style={{ width: 50, height: 50}}
+                  <TouchableOpacity
+                    style={styles.backButton}
+                    onPress={() => setIsSelectionOpen(false)}>
+                    <Image
+                      source={require('@/assets/images/arrow-left-circle.png')}
+                      style={styles.backImage}
                     />
                   </TouchableOpacity>
+                  <View style={styles.inputContainer}>
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Search for a competition"
+                      keyboardType="web-search"
+                      onChangeText={setSearchInput}
+                      value={searchInput}
+                    />
+                    <Icon name="search" size={24} color="black" style={{ position: "absolute", top: 11, right: 10 }} />
+                  </View>
                 </View>
                 <View>
                   <Text style={{fontSize: 20, marginBottom: 10}}>Welcome to Soo</Text>
@@ -49,25 +70,31 @@ const CompetionModal = ({isSelectionOpen, setIsSelectionOpen}: IModalProp) => {
 export default CompetionModal;
 
 const styles= StyleSheet.create({
-    modalContainer: {
+  modalContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)'
   },
   modalWrapper: {
-    justifyContent: 'space-around',
-    width: '80%',
-    height: '40%',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    width: '100%',
+    padding: 20,
     backgroundColor: '#fff',
-    borderRadius: 20
   },
   modalIconWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  inputContainer:{
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 15,
+  },
+  input: {
+    padding: 10,
+    borderRadius: 15,
+    width: 250,
   },
   submitButton: {
     backgroundColor: '#253BFF',
@@ -78,5 +105,15 @@ const styles= StyleSheet.create({
   submitButtonText: {
     color: '#fff',
     fontSize: 16,
+  },
+  backButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 10,
+  },
+  backImage: {
+    width: 45,
+    height: 45,
+    marginRight: 15,
   },
 })

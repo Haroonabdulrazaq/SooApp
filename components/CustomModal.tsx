@@ -7,7 +7,7 @@ interface IModalProp {
 }
 
 const CustomModal = ({modalVisible, setModalVisible}: IModalProp) => {
-    // const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <SafeAreaView>
       {modalVisible && (

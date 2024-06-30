@@ -12,9 +12,9 @@ import {
 import { Formik } from 'formik';
 import { SignupSchema } from '@/validation/SignupValidation';
 import CustomModal from './CustomModal';
-import { useNavigation } from 'expo-router';
 import CompetionModal from './CompetionModal';
-// import {useNavigation} from "@react"
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 
 
 const SignupForm = () => {
@@ -51,22 +51,11 @@ const SignupForm = () => {
             keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
           >
             <View style={styles.inputContainer}>
+              <Icon name="expand-more" size={24} color="black" style={{ position: "absolute", top: 10, right: 10 }} />
               <TouchableOpacity style={styles.input} onPress={() => setIsSelectionOpen(true)}>
-                <Text>Competition to sign up * </Text>
+                <Text style={styles.placeholderText}>Competition to sign up * </Text>
               </TouchableOpacity>
             </View>
-            {/* <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.input}
-                placeholder="Competition to sign up *"
-                onChangeText={handleChange('competition')}
-                onBlur={handleBlur('competition')}
-                value={values.competition}
-              />
-              {errors.competition && touched.competition && (
-                <Text style={styles.errorText}>{errors.competition}</Text>
-              )}
-            </View> */}
             <View style={styles.inputContainer}>
               <TextInput
                 style={styles.input}
@@ -199,5 +188,9 @@ const styles = StyleSheet.create({
   },
   label: {
     margin: 8,
+  },
+  placeholderText: {
+    fontSize: 16,
+    color: '#aaa',
   }
 });
