@@ -12,13 +12,19 @@ import {
 import { Formik } from 'formik';
 import { SignupSchema } from '@/validation/SignupValidation';
 import CustomModal from './CustomModal';
+import { useNavigation } from 'expo-router';
+import CompetionModal from './CompetionModal';
+// import {useNavigation} from "@react"
 
 
 const SignupForm = () => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [isSelectionOpen, setIsSelectionOpen] = useState(false);
+
     return (
     <ScrollView contentContainerStyle={styles.container}>
       <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
+      <CompetionModal isSelectionOpen={isSelectionOpen} setIsSelectionOpen={setIsSelectionOpen}/>
       <Formik
         initialValues={{
           competition: '',
@@ -45,6 +51,11 @@ const SignupForm = () => {
             keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
           >
             <View style={styles.inputContainer}>
+              <TouchableOpacity style={styles.input} onPress={() => setIsSelectionOpen(true)}>
+                <Text>Competition to sign up * </Text>
+              </TouchableOpacity>
+            </View>
+            {/* <View style={styles.inputContainer}>
               <TextInput
                 style={styles.input}
                 placeholder="Competition to sign up *"
@@ -55,7 +66,7 @@ const SignupForm = () => {
               {errors.competition && touched.competition && (
                 <Text style={styles.errorText}>{errors.competition}</Text>
               )}
-            </View>
+            </View> */}
             <View style={styles.inputContainer}>
               <TextInput
                 style={styles.input}
