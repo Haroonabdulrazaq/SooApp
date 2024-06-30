@@ -1,45 +1,24 @@
 import React, {useState} from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Modal, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform
+} from 'react-native';
 import { Formik } from 'formik';
 import { SignupSchema } from '@/validation/SignupValidation';
+import CustomModal from './CustomModal';
 
 
 const SignupForm = () => {
     const [modalVisible, setModalVisible] = useState(false);
     return (
     <ScrollView contentContainerStyle={styles.container}>
-      {modalVisible && (
-          <Modal
-            animationType="slide"
-            visible={modalVisible}
-            onRequestClose={()=>setModalVisible(false)}
-            presentationStyle="pageSheet"
-          >
-            <View style={styles.modalContainer}>
-              <View style={styles.modalWrapper}>
-                <View style={styles.modalIconWrapper}>
-                  <Image
-                    source={require('@/assets/images/star-icon.png')}
-                    style={{ width: 50, height: 50 }}
-                  />
-                  <TouchableOpacity onPress={()=> setModalVisible(false)}>
-                    <Image 
-                      source={require('@/assets/images/close-icon.png')}
-                      style={{ width: 50, height: 50}}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <View>
-                  <Text style={{fontSize: 20, marginBottom: 10}}>Welcome to Soo</Text>
-                  <Text style={{fontSize: 16, marginBottom: 10}}>Great to have you with us!</Text>
-                </View>
-                <TouchableOpacity style={styles.submitButton} onPress={()=>setModalVisible(false)}>
-                  <Text style={styles.submitButtonText}>Got it</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </Modal>
-      )}
+      <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
       <Formik
         initialValues={{
           competition: '',
@@ -51,18 +30,20 @@ const SignupForm = () => {
         }}
         validationSchema={SignupSchema}
         onSubmit={(values, {resetForm}) => {
-          console.log("values", values);
-
-          //TODO: Clean form values implementation
-          //TODO: Send form values to BE implementation
+          console.log(values); // so that value variable is used
+          //TODO: Clean form values
+          //TODO: Send form values to BE
           // TODO: Reset Form
-          // TODO: Redirect to another screen
+          // TODO: Redirect to another screen or show a modal
           resetForm();
           setModalVisible(true);
         }}
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
-          <View>
+          <KeyboardAvoidingView
+            behavior='padding'
+            keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+          >
             <View style={styles.inputContainer}>
               <TextInput
                 style={styles.input}
@@ -140,21 +121,15 @@ const SignupForm = () => {
             </View>
             <TouchableOpacity style={styles.checkboxContainer}>
               <Text style={styles.checkboxText}>
-                {/* <CheckBox
-                  value={isSelected}
-                  onValueChange={setSelection}
-                  style={styles.checkbox}
-                /> */}
-                <Text style={styles.label}>By signing up, I agree to Cloit's{' '}</Text>
+                <Text style={styles.label}>By signing up, I agree to Cloit's </Text>
                 <Text style={styles.linkText}>Terms & Conditions</Text> and{' '}
                 <Text style={styles.linkText}>Privacy Policy</Text>.
               </Text>
             </TouchableOpacity>
-
             <TouchableOpacity style={styles.submitButton} onPress={()=> handleSubmit()}>
               <Text style={styles.submitButtonText}>Sign Up</Text>
             </TouchableOpacity>
-          </View>
+          </KeyboardAvoidingView>
         )}
       </Formik>
     </ScrollView>
@@ -167,7 +142,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 20,
     paddingTop: 50,
-    height: "100%",
+    height: "110%",
     backgroundColor: '#fff',
     fontFamily: 'Poppins',
   },
@@ -213,26 +188,5 @@ const styles = StyleSheet.create({
   },
   label: {
     margin: 8,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)'
-  },
-  modalWrapper: {
-    justifyContent: 'space-around',
-    width: '80%',
-    height: '40%',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: '#fff',
-    borderRadius: 20
-  },
-  modalIconWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  // {backgroundColor: '#fff', padding: 20, borderRadius: 20, width: '80%', height: "40%"}
+  }
 });
