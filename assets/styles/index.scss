@@ -1,0 +1,15 @@
+@import "./utils.scss";
+
+body {
+  font-family: 'poppins';
+  background-color: $primary-color;
+}
+
+.container {
+  padding: 16px;
+}
+
+.text {
+  color: #333;
+  font-size: 16px;
+}

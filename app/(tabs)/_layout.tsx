@@ -1,37 +1,32 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import React from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import SplashScreen from "@/screens/SplashScreen";
+import SignUpScreen from "@/screens/SignUpScreen";
+import CompetitionScreen from "@/screens/CompetitionScreen";
+import CustomBackButton from "@/components/CustomBackButton";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const Stack = createNativeStackNavigator();
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
-        }}
+    <Stack.Navigator
+      initialRouteName="SplashScreen"
+      screenOptions={({ navigation }) => ({
+          headerLeft: () => <CustomBackButton navigation={navigation} />,
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 18,
+          },
+      })}
+    >
+      <Stack.Screen name="Splash" component={SplashScreen} options={{
+        headerShown: false,}}
       />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
+      <Stack.Screen name="SignUp" component={SignUpScreen} options={{
+        headerTitle: 'Create Account',
+        headerTitleStyle: { fontFamily: 'Poppins', fontWeight: 'bold', fontSize: 20},
+      }} />
+      <Stack.Screen name="Competition" component={CompetitionScreen} />
+    </Stack.Navigator>
   );
 }
